@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Alpha Platform</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Alpha Platform — 디지털 전환 시대의 가장 신뢰할 수 있는 기반 시스템을 제공하는 모바일·소프트웨어 개발 스튜디오.">
+
+<!-- Google Search Console 소유권 확인용 (인증 시 추가) -->
+<!-- <meta name="google-site-verification" content="여기에-인증코드-붙여넣기" /> -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  /* === Alpha Platform CI Tokens === */
+  :root {
+    --alpha-navy:    #0B1120;
+    --alpha-navy-2:  #111a2e;
+    --alpha-navy-3:  #1a2440;
+    --cyber-teal:    #14B8A6;
+    --cyber-teal-2:  #0d8c7e;
+    --concrete-gray: #94A3B8;
+    --concrete-gray-2:#cbd5e1;
+    --white:         #ffffff;
+    --font-display:  'Montserrat', 'Noto Sans KR', sans-serif;
+    --font-body:     'Noto Sans KR', 'Montserrat', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body);
+    color: var(--concrete-gray-2);
+    background: var(--alpha-navy);
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Subtle radial glow background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(circle at 80% 10%, rgba(20, 184, 166, 0.08), transparent 50%),
+      radial-gradient(circle at 10% 90%, rgba(20, 184, 166, 0.04), transparent 40%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container { position: relative; z-index: 1; max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  /* === Header / Hero === */
+  header.hero {
+    text-align: center;
+    padding: 96px 24px 64px;
+  }
+  .logo-wrap {
+    display: inline-block;
+    background: var(--white);
+    padding: 36px 80px;
+    border-radius: 6px;
+    box-shadow:
+      0 16px 48px rgba(0, 0, 0, 0.45),
+      0 2px 8px rgba(20, 184, 166, 0.08);
+    margin-bottom: 32px;
+    position: relative;
+  }
+  .logo-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 6px;
+    border: 1px solid rgba(20, 184, 166, 0.15);
+    pointer-events: none;
+  }
+  .logo-wrap img {
+    height: 160px;
+    width: auto;
+    display: block;
+  }
+  .tagline {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 18px;
+    letter-spacing: 0.2px;
+    color: var(--concrete-gray);
+    margin-top: 8px;
+  }
+  .accent-bar {
+    display: block;
+    width: 56px;
+    height: 3px;
+    background: var(--cyber-teal);
+    margin: 28px auto 0;
+    border-radius: 2px;
+  }
+
+  /* === Section title pattern (from CI) === */
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 26px;
+    letter-spacing: -0.3px;
+    color: var(--white);
+    margin-bottom: 28px;
+  }
+  .section-title::before {
+    content: '';
+    width: 4px;
+    height: 26px;
+    background: var(--cyber-teal);
+    border-radius: 2px;
+  }
+
+  /* === Section === */
+  section {
+    padding: 56px 0;
+  }
+  section + section { border-top: 1px solid rgba(148, 163, 184, 0.08); }
+
+  p.lead {
+    font-size: 16px;
+    color: var(--concrete-gray-2);
+    max-width: 760px;
+    margin-bottom: 8px;
+  }
+
+  /* === Card grid === */
+  .grid {
+    display: grid;
+    gap: 20px;
+  }
+  .grid.cols-2 { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+  .grid.cols-3 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+
+  .card {
+    background: linear-gradient(180deg, var(--alpha-navy-2), var(--alpha-navy));
+    border: 1px solid rgba(148, 163, 184, 0.12);
+    border-radius: 14px;
+    padding: 28px 26px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .card:hover {
+    border-color: rgba(20, 184, 166, 0.4);
+    transform: translateY(-2px);
+  }
+  .card .icon {
+    color: var(--cyber-teal);
+    font-size: 28px;
+    margin-bottom: 14px;
+    display: block;
+  }
+  .card h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 19px;
+    color: var(--white);
+    margin-bottom: 10px;
+  }
+  .card p {
+    font-size: 14px;
+    color: var(--concrete-gray);
+    line-height: 1.65;
+  }
+
+  /* === App card === */
+  .app-card {
+    background: linear-gradient(135deg, var(--alpha-navy-3), var(--alpha-navy-2));
+    border: 1px solid rgba(20, 184, 166, 0.25);
+    border-radius: 16px;
+    padding: 32px;
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    align-items: center;
+  }
+  .app-card .app-icon {
+    width: 72px; height: 72px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--cyber-teal), var(--cyber-teal-2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 38px;
+    flex-shrink: 0;
+  }
+  .app-card .app-body { flex: 1; min-width: 240px; }
+  .app-card h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+  .app-card .pkg {
+    font-family: 'Courier New', monospace;
+    color: var(--cyber-teal);
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+  .app-card p { color: var(--concrete-gray-2); font-size: 14.5px; }
+  .app-card .link {
+    display: inline-block;
+    margin-top: 14px;
+    color: var(--cyber-teal);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+  }
+  .app-card .link:hover { border-color: var(--cyber-teal); }
+
+  /* === Info table === */
+  .info-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--alpha-navy-2);
+    border: 1px solid rgba(148, 163, 184, 0.12);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .info-table tr { border-bottom: 1px solid rgba(148, 163, 184, 0.08); }
+  .info-table tr:last-child { border-bottom: none; }
+  .info-table th, .info-table td {
+    text-align: left;
+    padding: 16px 22px;
+    vertical-align: top;
+    font-size: 14.5px;
+  }
+  .info-table th {
+    width: 200px;
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--cyber-teal);
+    letter-spacing: 0.3px;
+    font-size: 13px;
+    text-transform: uppercase;
+  }
+  .info-table td { color: var(--white); }
+  .info-table td.muted { color: var(--concrete-gray); }
+  .info-table a { color: var(--cyber-teal); text-decoration: none; }
+  .info-table a:hover { text-decoration: underline; }
+
+  /* === Footer === */
+  footer {
+    margin-top: 64px;
+    padding: 32px 0 48px;
+    border-top: 1px solid rgba(148, 163, 184, 0.08);
+    text-align: center;
+    color: var(--concrete-gray);
+    font-size: 12.5px;
+    letter-spacing: 1.5px;
+    font-family: var(--font-display);
+    text-transform: uppercase;
+  }
+
+  /* === Responsive === */
+  @media (max-width: 600px) {
+    header.hero { padding: 64px 16px 40px; }
+    .logo-wrap img { height: 100px; }
+    .section-title { font-size: 22px; }
+    section { padding: 40px 0; }
+    .app-card { padding: 24px; }
+    .info-table th { width: 140px; padding: 14px 16px; font-size: 12px; }
+    .info-table td { padding: 14px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- === HERO === -->
+  <header class="hero">
+    <div class="logo-wrap">
+      <img src="logo.png" alt="Alpha Platform" />
+    </div>
+    <p class="tagline">Brand Identity Guide v1.0 · Digital Infrastructure Studio</p>
+    <span class="accent-bar"></span>
+  </header>
+
+  <!-- === BRAND PHILOSOPHY === -->
+  <section>
+    <h2 class="section-title">Brand Philosophy</h2>
+    <p class="lead">
+      Alpha Platform은 기술과 인간의 연결을 최우선으로 생각하며, 디지털 생태계의 근간이 되는 '기준'을 제시합니다.
+    </p>
+  </section>
+
+  <!-- === MISSION & VISION === -->
+  <section>
+    <h2 class="section-title">Mission &amp; Vision</h2>
+    <div class="grid cols-2">
+      <div class="card">
+        <span class="icon">🚀</span>
+        <h3>Our Mission</h3>
+        <p>전 세계 모든 디지털 전환의 시점에서 가장 신뢰할 수 있는 기반 시스템을 제공하여 인류의 생산성을 혁신합니다.</p>
+      </div>
+      <div class="card">
+        <span class="icon">👁</span>
+        <h3>Our Vision</h3>
+        <p>2030년까지 글로벌 1위의 개방형 인프라 플랫폼으로 거듭나며, 기술 표준의 정점(Alpha)이 되는 것.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- === CORE VALUES === -->
+  <section>
+    <h2 class="section-title">Core Values</h2>
+    <div class="grid cols-3">
+      <div class="card">
+        <span class="icon">⚙</span>
+        <h3>Innovation</h3>
+        <p>기존의 틀을 깨는 기술적 시도로 미래를 앞당깁니다.</p>
+      </div>
+      <div class="card">
+        <span class="icon">🛡</span>
+        <h3>Integrity</h3>
+        <p>변하지 않는 원칙으로 데이터의 가치를 지킵니다.</p>
+      </div>
+      <div class="card">
+        <span class="icon">⟨⟩</span>
+        <h3>Scalability</h3>
+        <p>제한 없는 확장성으로 모든 비즈니스를 지원합니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- === PRODUCTS === -->
+  <section>
+    <h2 class="section-title">Products</h2>
+    <div class="app-card">
+      <div class="app-icon">🐟</div>
+      <div class="app-body">
+        <h3>구구단 어항 — 물고기 모으는 학습</h3>
+        <div class="pkg">com.gugugame.fishtank</div>
+        <p>구구단·덧뺄셈·한글·영어 4종 학습 게임. 문제를 풀어 어항에 귀여운 물고기를 모으는 보상 시스템으로 어린이의 학습 동기를 높이는 가족용 학습 게임입니다.</p>
+        <a class="link" href="https://play.google.com/store/apps/details?id=com.gugugame.fishtank" target="_blank" rel="noopener">View on Google Play →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- === COMPANY INFO === -->
+  <section>
+    <h2 class="section-title">Company Information</h2>
+    <table class="info-table">
+      <tr><th>Company</th><td>Alpha Platform</td></tr>
+      <tr><th>Representative</th><td>Ryu Seounghoon (류승훈)</td></tr>
+      <tr><th>Business No.</th><td>462-57-00949</td></tr>
+      <tr><th>Industry</th><td>응용 소프트웨어 개발 및 공급업 (722000)</td></tr>
+      <tr><th>Address</th><td>부산광역시 북구</td></tr>
+      <tr><th>Established</th><td>June 2026</td></tr>
+      <tr><th>Email</th><td><a href="mailto:ryu87.app@gmail.com">ryu87.app@gmail.com</a></td></tr>
+    </table>
+  </section>
+
+  <!-- === CONTACT === -->
+  <section>
+    <h2 class="section-title">Contact</h2>
+    <p class="lead">
+      앱 관련 문의, 버그 신고, 협업 제안 등은 아래 이메일로 연락 주세요.
+    </p>
+    <table class="info-table" style="margin-top: 16px;">
+      <tr><th>General</th><td><a href="mailto:ryu87.app@gmail.com">ryu87.app@gmail.com</a></td></tr>
+      <tr><th>Privacy</th><td><a href="./privacy.html">Privacy Policy</a></td></tr>
+    </table>
+  </section>
+
+  <footer>
+    © 2026 Alpha Platform · All Rights Reserved
+  </footer>
+
+</div>
+
+</body>
+</html>
