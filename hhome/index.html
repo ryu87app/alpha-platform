@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="format-detection" content="telephone=no">
+<title>H HOME 따스한 집 · 정리수납 사례</title>
+<link rel="icon" href="img/logo.jpg">
+<style>
+:root{--bg:#FBF7EE;--card:#FFFFFF;--ink:#3A2E24;--brown:#6B5138;--brown-2:#8A6E52;--gold:#B88E5A;--gold-soft:#E8D3B0;--sage:#6F8160;--line:#E2D2B4;--on-brown:#FFFFFF}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1F1914;--card:#2B231C;--ink:#F1E9DB;--brown:#E8D3B0;--brown-2:#C9B596;--gold:#D2AE7C;--gold-soft:#4A3A2A;--sage:#9DB085;--line:#4A3C2E;--on-brown:#231B14}}
+:root[data-theme="dark"]{--bg:#1F1914;--card:#2B231C;--ink:#F1E9DB;--brown:#E8D3B0;--brown-2:#C9B596;--gold:#D2AE7C;--gold-soft:#4A3A2A;--sage:#9DB085;--line:#4A3C2E;--on-brown:#231B14}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;height:100%}
+body{min-height:100%;min-height:100dvh;display:flex;flex-direction:column;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,'Pretendard','Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',sans-serif;line-height:1.55;word-break:keep-all}
+header{display:flex;align-items:center;justify-content:center;gap:10px;padding:14px 16px 12px;border-bottom:1px solid var(--line)}
+header img{width:48px;height:48px;border-radius:50%;box-shadow:0 0 0 2px var(--gold-soft)}
+header b{display:block;font-size:17px;letter-spacing:.16em;color:var(--brown)}
+header span{display:block;font-size:12px;color:var(--brown-2)}
+main{flex:1;width:100%;max-width:760px;margin:0 auto;display:flex;flex-direction:column;justify-content:center;padding:14px 12px 108px}
+h1{text-align:center;font-size:19px;line-height:1.4;color:var(--brown)}
+.space{display:block;font-size:12px;font-weight:800;letter-spacing:.16em;color:var(--sage);margin-bottom:2px}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.shot{position:relative;border:0;padding:0;background:var(--gold-soft);border-radius:14px;overflow:hidden;cursor:zoom-in;aspect-ratio:3/4;width:100%}
+.shot img{display:block;width:100%;height:100%;object-fit:cover}
+.tag{position:absolute;left:8px;top:8px;font-size:11px;font-weight:800;letter-spacing:.1em;color:#fff;background:rgba(40,30,22,.82);border-radius:99px;padding:4px 10px}
+.tag.a{background:#5F7152}
+.text{text-align:center;font-size:14.5px;margin-top:14px;padding:0 6px;white-space:pre-line}
+.hint{text-align:center;font-size:12px;color:var(--brown-2);margin-top:10px}
+.empty{margin-top:14px;border:2px dashed var(--line);border-radius:16px;min-height:240px;display:flex;align-items:center;justify-content:center;color:var(--brown-2);font-weight:700}
+.contact{text-align:center;font-size:12.5px;color:var(--brown-2);margin-top:14px}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);padding:10px 10px calc(10px + env(safe-area-inset-bottom))}
+nav div{max-width:560px;margin:0 auto;display:flex;gap:8px;overflow-x:auto}
+nav button{flex:1 0 48px;min-height:54px;font:inherit;font-size:19px;font-weight:800;border:1.5px solid var(--gold);background:transparent;color:var(--brown);border-radius:14px;cursor:pointer}
+nav button[aria-pressed="true"]{background:var(--brown);border-color:var(--brown);color:var(--on-brown)}
+nav button.none{opacity:.45}
+nav button.none[aria-pressed="true"]{opacity:1}
+dialog{border:0;background:transparent;padding:0;margin:auto;max-width:96vw;max-height:94vh}
+dialog::backdrop{background:rgba(0,0,0,.88)}
+dialog img{display:block;max-width:96vw;max-height:82vh;margin:0 auto;border-radius:10px}
+dialog button{display:block;margin:12px auto 0;font:inherit;font-weight:800;padding:11px 30px;border-radius:99px;border:0;background:#fff;color:#3A2E24;cursor:pointer}
+</style>
+</head>
+<body>
+<header><img src="img/logo.jpg" alt="H HOME 로고" width="48" height="48"><div><b>H HOME</b><span>따스한 집 · 정리수납 사례</span></div></header>
+
+<main>
+  <div id="view" aria-live="polite"></div>
+  <p class="contact">상담 문의 010-5008-7298 · 부산 · 양산 · 김해</p>
+</main>
+
+<nav aria-label="사례 번호"><div id="nums"></div></nav>
+
+<dialog id="zoom"><img alt=""><button type="button">닫기</button></dialog>
+
+<script src="cases.js"></script>
+<script>
+"use strict";
+(function(){
+  var view=document.getElementById("view"),nums=document.getElementById("nums"),dlg=document.getElementById("zoom"),big=dlg.querySelector("img");
+  var cases=window.CASES||[];
+  if(!window.CASES)console.warn("cases.js 에서 사례 목록을 읽지 못했습니다.");
+  var count=Math.max(5,cases.length);
+  function el(tag,cls,text){var e=document.createElement(tag);if(cls)e.className=cls;if(text)e.textContent=text;return e;}
+  function shot(src,label,after,title){
+    var b=el("button","shot");b.type="button";
+    var img=el("img");img.src=src;img.alt=title+" "+label;
+    img.onerror=function(){console.warn("사진을 불러오지 못했습니다:",src);b.appendChild(el("span","hint","사진을 불러오지 못했습니다"));};
+    b.appendChild(img);b.appendChild(el("span","tag"+(after?" a":""),label));
+    b.onclick=function(){big.src=src;big.alt=img.alt;dlg.showModal();};
+    return b;
+  }
+  function show(n){
+    var c=cases[n-1];view.textContent="";
+    var h=el("h1");h.appendChild(el("span","space","CASE "+n+(c&&c.space?" · "+c.space:"")));
+    h.appendChild(document.createTextNode(c?c.title:"사례 "+n));view.appendChild(h);
+    if(!window.CASES){view.appendChild(el("div","empty","사례를 불러오지 못했습니다"));}
+    else if(!c){view.appendChild(el("div","empty","준비 중입니다"));}
+    else{
+      var pair=el("div","pair");pair.appendChild(shot(c.before,"BEFORE",false,c.title));pair.appendChild(shot(c.after,"AFTER",true,c.title));view.appendChild(pair);
+      if(c.text)view.appendChild(el("p","text",c.text));
+      view.appendChild(el("p","hint","왼쪽 정리 전 · 오른쪽 정리 후 · 사진을 누르면 크게 보여요"));
+    }
+    Array.prototype.forEach.call(nums.children,function(b,i){b.setAttribute("aria-pressed",String(i===n-1));});
+  }
+  for(var i=1;i<=count;i++){
+    (function(n){
+      var b=el("button",cases[n-1]?"":"none",String(n));b.type="button";b.setAttribute("aria-label","사례 "+n);
+      b.onclick=function(){show(n);window.scrollTo(0,0);};nums.appendChild(b);
+    })(i);
+  }
+  var first=1;for(var k=0;k<cases.length;k++){if(cases[k]){first=k+1;break;}}
+  show(first);
+  dlg.querySelector("button").onclick=function(){dlg.close();};
+  dlg.addEventListener("click",function(e){if(e.target===dlg)dlg.close();});
+})();
+</script>
+</body>
+</html>
