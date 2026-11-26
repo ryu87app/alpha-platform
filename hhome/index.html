@@ -54,14 +54,11 @@ dialog button{display:block;margin:12px auto 0;font:inherit;font-weight:800;padd
 
 <dialog id="zoom"><img alt=""><button type="button">닫기</button></dialog>
 
-<script src="cases.js"></script>
 <script>
 "use strict";
 (function(){
   var view=document.getElementById("view"),nums=document.getElementById("nums"),dlg=document.getElementById("zoom"),big=dlg.querySelector("img");
-  var cases=window.CASES||[];
-  if(!window.CASES)console.warn("cases.js 에서 사례 목록을 읽지 못했습니다.");
-  var count=Math.max(5,cases.length);
+  var cases=[];
   function el(tag,cls,text){var e=document.createElement(tag);if(cls)e.className=cls;if(text)e.textContent=text;return e;}
   function shot(src,label,after,title){
     var b=el("button","shot");b.type="button";
@@ -84,16 +81,27 @@ dialog button{display:block;margin:12px auto 0;font:inherit;font-weight:800;padd
     }
     Array.prototype.forEach.call(nums.children,function(b,i){b.setAttribute("aria-pressed",String(i===n-1));});
   }
-  for(var i=1;i<=count;i++){
-    (function(n){
-      var b=el("button",cases[n-1]?"":"none",String(n));b.type="button";b.setAttribute("aria-label","사례 "+n);
-      b.onclick=function(){show(n);window.scrollTo(0,0);};nums.appendChild(b);
-    })(i);
+  function start(){
+    cases=window.CASES||[];
+    if(!window.CASES)console.warn("cases.js 에서 사례 목록을 읽지 못했습니다.");
+    var count=Math.max(5,cases.length);
+    for(var i=1;i<=count;i++){
+      (function(n){
+        var b=el("button",cases[n-1]?"":"none",String(n));b.type="button";b.setAttribute("aria-label","사례 "+n);
+        b.onclick=function(){show(n);window.scrollTo(0,0);};nums.appendChild(b);
+      })(i);
+    }
+    var first=1;for(var k=0;k<cases.length;k++){if(cases[k]){first=k+1;break;}}
+    show(first);
   }
-  var first=1;for(var k=0;k<cases.length;k++){if(cases[k]){first=k+1;break;}}
-  show(first);
   dlg.querySelector("button").onclick=function(){dlg.close();};
   dlg.addEventListener("click",function(e){if(e.target===dlg)dlg.close();});
+  // 새 사례가 바로 보이도록, 열 때마다 주소 뒤에 시각을 붙여 목록을 새로 받는다(브라우저 보관본을 쓰지 않는다).
+  var list=document.createElement("script");
+  list.src="cases.js?t="+Date.now();
+  list.onload=start;
+  list.onerror=function(){console.warn("cases.js 를 받지 못했습니다:",list.src);start();};
+  document.body.appendChild(list);
 })();
 </script>
 </body>
