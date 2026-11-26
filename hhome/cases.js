@@ -7,7 +7,13 @@ window.CASES = [
     "before": "img/case1_before.jpg?v=8e9753a0",
     "after": "img/case1_after.jpg?v=9cf823c4"
   },
-  null,
+  {
+    "space": "주방",
+    "title": "조리대가 넓어진 주방",
+    "text": "조리대 위에 나와 있던 봉지와 병, 조리도구를 치우고 가스레인지 주변까지 말끔하게 정리했습니다.",
+    "before": "img/case2_before.jpg?v=2df6aa8f",
+    "after": "img/case2_after.jpg?v=3de649dd"
+  },
   null,
   null,
   null
